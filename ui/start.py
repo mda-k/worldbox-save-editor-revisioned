@@ -3,7 +3,15 @@ import customtkinter as ctk
 from PIL import Image, ImageTk
 import os
 from tkinter import messagebox, filedialog
+import zlib
 from pathlib import Path
+import time
+import sys
+cdir = Path(__file__).resolve().parent
+rdir = cdir.parent / "compilation"
+if str(rdir) not in sys.path:
+    sys.path.insert(0, str(rdir))
+from decompile import *
 
 #the main function that main.py calls
 def choose_ui():
@@ -16,13 +24,11 @@ def choose_ui():
         app.quit()
         app.destroy()
     app.protocol("WM_DELETE_WINDOW", FUCKMYLIFE)
+    def choosefile():
+        decompile()
+        FUCKMYLIFE()
     
-    def choosefile(): #pretty self explanatory, for the choose file button
-        savefile = filedialog.askopenfilename(title="select your .wbox save", filetypes=[("WorldBox files", "*.wbox")])
-        if savefile:
-            print(f"\n{savefile}")
-        else:
-            print("go fuck yourself") #for troubleshooting
+            
             
     #window config
     app.title("unprofessional worldbox save editor")
